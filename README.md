@@ -222,6 +222,8 @@ console.log(cumulativeSum); // Output: [1, 3, 6, 10, 15]
 ```
 #### Check if an array is a palindrome.
 ```
+
+
  function palindrome(arr){
     let rev = [...arr].reverse()
     return JSON.stringify(arr)===JSON.stringify(rev)
@@ -275,4 +277,145 @@ function occ(arr) {
 
 const arr = [1, 2, 2, 3, 1, 4, 2, 5];
 console.log(occ(arr));
+```
+#### int micro 1
+```
+function mergeAndReplace(A, B) {
+  var mergedArray = [];
+  for (var i = 0; i < A.length; i++) {
+    mergedArray.push(A[i]);
+  }
+  for (var j = 0; j < B.length; j++) {
+    mergedArray.push(B[j]);
+  }
+
+  var uniqueArray = [];
+  for (var k = 0; k < mergedArray.length; k++) {
+    if (uniqueArray.indexOf(mergedArray[k]) === -1) {
+      uniqueArray.push(mergedArray[k]);
+    }
+  }
+
+  var firstOccurrenceIndex = -1;
+  for (var m = 0; m < uniqueArray.length; m++) {
+    if (uniqueArray[m] === uniqueArray[0]) {
+      firstOccurrenceIndex = m;
+      break;
+    }
+  }
+  if (firstOccurrenceIndex !== -1) {
+    uniqueArray[firstOccurrenceIndex] = 0;
+  }
+
+  return uniqueArray;
+}
+
+function runTestCases() {
+  var testCases = [
+    [
+      [1, 2, 3, 4],
+      [4, 3, 2, 1],
+    ],
+    [
+      [5, 8, 3, 1],
+      [2, 4, 6, 9],
+    ],
+    [
+      [2, 4, 6, 8],
+      [5, 8, 3, 1],
+    ],
+    [
+      [9, 9, 7, 7],
+      [4, 2, 2, 9],
+    ],
+    [[], []],
+    [
+      [1, 2, 3],
+      [3, 4, 5],
+    ],
+  ];
+
+  testCases.forEach(function (testCase) {
+    console.log(mergeAndReplace(testCase[0], testCase[1]));
+  });
+}
+
+// Run test cases
+runTestCases();
+
+```
+```
+function mergeAndReplace(A, B) {
+  var mergedMap = new Map(); // Use a map to track elements and their first occurrences
+  var firstOccurrenceIndex = -1; // Track the index of the first occurrence
+
+  // Merge arrays A and B while removing duplicates and finding the first occurrence
+  for (var i = 0; i < A.length; i++) {
+    var element = A[i];
+    if (!mergedMap.has(element)) {
+      // If the element is not in the map
+      mergedMap.set(element, mergedMap.size); // Add it to the map with its index
+      if (firstOccurrenceIndex === -1) {
+        // If this is the first occurrence
+        firstOccurrenceIndex = mergedMap.size - 1; // Update the first occurrence index
+      }
+    }
+  }
+
+  for (var j = 0; j < B.length; j++) {
+    var element = B[j];
+    if (!mergedMap.has(element)) {
+      // If the element is not in the map
+      mergedMap.set(element, mergedMap.size); // Add it to the map with its index
+      if (firstOccurrenceIndex === -1) {
+        // If this is the first occurrence
+        firstOccurrenceIndex = mergedMap.size - 1; // Update the first occurrence index
+      }
+    }
+  }
+
+  // Construct the merged array and replace the first occurrence with 0
+  var mergedArray = [];
+  mergedMap.forEach(function (value, key) {
+    if (value === firstOccurrenceIndex) {
+      // If this is the first occurrence
+      mergedArray.push(0); // Replace it with 0
+    } else {
+      mergedArray.push(key); // Otherwise, add the element as is
+    }
+  });
+
+  return mergedArray;
+}
+
+// Test cases
+function runTestCases() {
+  var testCases = [
+    [
+      [5, 8, 3, 1],
+      [2, 4, 6, 9],
+    ],
+    [
+      [2, 4, 6, 8],
+      [5, 8, 3, 1],
+    ],
+    [
+      [9, 9, 7, 7],
+      [4, 2, 2, 9],
+    ],
+    [[], []],
+    [
+      [1, 2, 3],
+      [3, 4, 5],
+    ],
+  ];
+
+  testCases.forEach(function (testCase) {
+    console.log(mergeAndReplace(testCase[0], testCase[1]));
+  });
+}
+
+// Run test cases
+runTestCases();
+
 ```
